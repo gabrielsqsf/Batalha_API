@@ -1,21 +1,26 @@
 package personagem;
 
 public class Personagem {
+	private int tipo;
 	private int pdv;
 	private int forca;
 	private int defesa;
 	private int agilidade;
 	private int numDados;
 	private int ladoDado;
-	
-	public Personagem(int pdv, int forca, int defesa, int agilidade, int numDados, int ladoDado) {
+	private String nome;
+
+	public Personagem(int tipo, int pdv, int forca, int defesa, int agilidade, int numDados, int ladoDado,
+			String nome) {
 		super();
+		this.tipo = tipo;
 		this.pdv = pdv;
 		this.forca = forca;
 		this.defesa = defesa;
 		this.agilidade = agilidade;
 		this.numDados = numDados;
 		this.ladoDado = ladoDado;
+		this.nome = nome;
 	}
 
 	public int getPdv() {
@@ -66,6 +71,20 @@ public class Personagem {
 		this.ladoDado = ladoDado;
 	}
 	
-	
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 }
