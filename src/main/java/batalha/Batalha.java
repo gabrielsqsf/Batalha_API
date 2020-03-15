@@ -9,6 +9,7 @@ public class Batalha {
 	private final String nickname;
 	private final ArrayList<Personagem> participantes;
 	private final ArrayList<Turno> turnos;
+	private boolean terminada;
 	
 	public Batalha(String nickname, ArrayList<Personagem> personagens) {
 		super();
@@ -16,6 +17,7 @@ public class Batalha {
 		this.nickname = nickname;
 		this.participantes = personagens;
 		this.turnos = new ArrayList<Turno>();
+		this.terminada = false; 
 	}
 
 	public long getRank() {
@@ -37,4 +39,13 @@ public class Batalha {
 	public ArrayList<Turno> getTurnos() {
 		return turnos;
 	}
+	
+	public boolean isTerminada() {
+		return terminada;
+	}
+
+	public void setTerminada(boolean terminada) {
+		this.terminada = terminada;
+	}
+
 }
