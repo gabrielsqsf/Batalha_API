@@ -3,6 +3,8 @@ package personagem;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+import dados.Dados;
+
 public class LogicaPersonagem {
 	public static Personagem selecionarPersonagemJogador(String nome_personagem) {
 		Personagem p = null;
@@ -15,28 +17,20 @@ public class LogicaPersonagem {
 	}
 	
 	public static int getIniciativa(Personagem p) {
-		
-		return p.getAgilidade() + rolaDado(10);
+		return p.getAgilidade() + Dados.rolarDados(10);
 	}
 	
 	public static int getAtaque(Personagem p) {
-		return p.getAgilidade() + p.getForca() + rolaDado(10);
+		return p.getAgilidade() + p.getForca() + Dados.rolarDados(10);
 	}
 	
 	public static int getDefesa(Personagem p) {
-		return p.getAgilidade() + p.getDefesa() + rolaDado(10);
+		return p.getAgilidade() + p.getDefesa() + Dados.rolarDados(10);
 	}
 	
 	public static int getDano(Personagem p) {
-		int danoDados = 0;
-		for(int j = 0; j < p.getNumDados(); j++) {
-			danoDados += rolaDado(p.getLadoDado());
-		}
-		return p.getForca() + danoDados;
+		return p.getForca() + Dados.rolarDados(p.getLadoDado(), p.getNumDados());
 	}
 	
-	private static int rolaDado(int faces) {
-		Random r = new Random(System.currentTimeMillis());
-		return 1+ r.nextInt(faces);
-	}
+	
 }
