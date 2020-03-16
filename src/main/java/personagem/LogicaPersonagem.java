@@ -4,14 +4,16 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 import dados.Dados;
+import personagem.persistencia.PersonagemInexistenteException;
+import personagem.persistencia.SemMonstrosException;
 
 public class LogicaPersonagem {
-	public static Personagem selecionarPersonagemJogador(String nome_personagem) {
+	public static Personagem selecionarPersonagemJogador(String nome_personagem) throws PersonagemInexistenteException {
 		Personagem p = null;
 		return p;
 	}
 
-	public static Personagem sorteiaMonstro() {
+	public static Personagem sorteiaMonstro() throws SemMonstrosException {
 		Personagem p = null;
 		return p;
 	}
