@@ -7,36 +7,37 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import personagem.Personagem;
-import personagem.PersonagemDAO;
-import personagem.PersonagemInexistenteException;
-import personagem.SemMonstrosException;
+import personagem.persistencia.PersonagemDAO;
+import personagem.persistencia.PersonagemInexistenteException;
+import personagem.persistencia.SemMonstrosException;
+import personagem.persistencia.TipoPersonagemEnum;
 
 public class PersonagemDAOImpl implements PersonagemDAO {
 	List<Personagem> personagens;
 	
 	PersonagemDAOImpl() {
 		personagens = new ArrayList<Personagem>();
-		Personagem guerreiro = new Personagem(1, 12, 4, 3, 3, 2, 4, "Guerreiro");
+		Personagem guerreiro = new Personagem(TipoPersonagemEnum.Jogador.ordinal(), 12, 4, 3, 3, 2, 4, "Guerreiro");
 		personagens.add(guerreiro);
 				
-		Personagem barbaro = new Personagem(1, 13, 6, 1, 3, 2, 6, "Barbaro");
+		Personagem barbaro = new Personagem(TipoPersonagemEnum.Jogador.ordinal(), 13, 6, 1, 3, 2, 6, "Barbaro");
 		personagens.add(barbaro);
 		
-		Personagem paladino = new Personagem(1, 15, 2, 5, 1, 2, 4, "Paladino");
+		Personagem paladino = new Personagem(TipoPersonagemEnum.Jogador.ordinal(), 15, 2, 5, 1, 2, 4, "Paladino");
 		personagens.add(paladino);
 		
-		Personagem morto = new Personagem(2, 25, 4, 0, 1, 2, 4, "Morto-Vivo");
+		Personagem morto = new Personagem(TipoPersonagemEnum.Monstro.ordinal(), 25, 4, 0, 1, 2, 4, "Morto-Vivo");
 		personagens.add(morto);
 		
-		Personagem orc = new Personagem(2, 20, 6, 2, 2, 1, 8, "Orc");
+		Personagem orc = new Personagem(TipoPersonagemEnum.Monstro.ordinal(), 20, 6, 2, 2, 1, 8, "Orc");
 		personagens.add(orc);
 		
-		Personagem kobold = new Personagem(2, 20, 4, 2, 4, 3, 2, "Kobold");
+		Personagem kobold = new Personagem(TipoPersonagemEnum.Monstro.ordinal(), 20, 4, 2, 4, 3, 2, "Kobold");
 		personagens.add(kobold);
 	}
 
 	public Personagem selecionaPersonagem(String nome) throws PersonagemInexistenteException {
-		Optional<Personagem> p = personagens.stream().filter(psg -> psg.getTipo() == 1 && psg.getNome().equals(nome)).findFirst();
+		Optional<Personagem> p = personagens.stream().filter(psg -> psg.getTipo() == TipoPersonagemEnum.Jogador.ordinal() && psg.getNome().equals(nome)).findFirst();
 		if(!p.isPresent()) {
 			throw new PersonagemInexistenteException();
 		} else {
@@ -45,7 +46,7 @@ public class PersonagemDAOImpl implements PersonagemDAO {
 	}
 
 	public Personagem sorteiaMonstro() throws SemMonstrosException {
-		List<Personagem> pList = personagens.stream().filter(psg -> psg.getTipo() == 2).collect(Collectors.toList());
+		List<Personagem> pList = personagens.stream().filter(psg -> psg.getTipo() == TipoPersonagemEnum.Monstro.ordinal()).collect(Collectors.toList());
 		if(pList.size() == 0) {
 			throw new SemMonstrosException();
 		}
