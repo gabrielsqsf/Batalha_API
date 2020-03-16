@@ -1,11 +1,17 @@
 package batalha;
 
+import batalha.persistencia.BatalhaInexistenteException;
 import personagem.LogicaPersonagem;
 import personagem.Personagem;
 
 public class LogicaTurno {
 	
-	public static Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException {
+	public static Turno criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
+		Batalha b = LogicaBatalha.getBatalha(id);
+		return criarTurno(b);
+	}
+	
+	protected static Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException {
 		
 		if(batalha.isTerminada()) {
 			throw new BatalhaTerminadaException();

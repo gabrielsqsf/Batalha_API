@@ -1,8 +1,9 @@
 package batalha;
 
 import java.util.ArrayList;
-import personagem.Personagem;
+
 import batalha.Turno;
+import personagem.Personagem;
 
 public class Batalha {
 	private final long id;
