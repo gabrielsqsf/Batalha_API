@@ -1,4 +1,6 @@
-package personagem;
+package personagem.persistencia;
+
+import personagem.Personagem;
 
 public interface PersonagemDAO {
 	public Personagem selecionaPersonagem(String nome) throws PersonagemInexistenteException;
