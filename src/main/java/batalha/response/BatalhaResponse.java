@@ -1,47 +1,46 @@
-package batalha;
+package batalha.response;
 
 import java.util.ArrayList;
-import personagem.Personagem;
-import batalha.Turno;
 
-public class Batalha {
+import batalha.Batalha;
+import batalha.Turno;
+import personagem.Personagem;
+
+public class BatalhaResponse {
 	private final long id;
 	private final String nickname;
 	private final ArrayList<Personagem> participantes;
 	private final ArrayList<Turno> turnos;
-	private boolean terminada;
+	private final boolean terminada;
+	private final int ranking;
 	
-	public Batalha(String nickname, ArrayList<Personagem> personagens) {
+	public BatalhaResponse(long id, String nickname, ArrayList<Personagem> participantes, ArrayList<Turno> turnos,
+			boolean terminada, int ranking) {
 		super();
-		this.id = 0L;
+		this.id = id;
 		this.nickname = nickname;
-		this.participantes = personagens;
-		this.turnos = new ArrayList<Turno>();
-		this.terminada = false; 
+		this.participantes = participantes;
+		this.turnos = turnos;
+		this.terminada = terminada;
+		this.ranking = ranking;
 	}
-
+	
 	public long getId() {
 		return id;
 	}
-
 	public String getNickname() {
 		return nickname;
 	}
-
 	public ArrayList<Personagem> getParticipantes() {
 		return participantes;
 	}
-
 	public ArrayList<Turno> getTurnos() {
 		return turnos;
 	}
-	
 	public boolean isTerminada() {
 		return terminada;
 	}
-
-	public void setTerminada(boolean terminada) {
-		this.terminada = terminada;
+	public int getRanking() {
+		return ranking;
 	}
-
 }
