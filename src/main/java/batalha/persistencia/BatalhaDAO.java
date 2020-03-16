@@ -1,6 +1,8 @@
-package batalha;
+package batalha.persistencia;
 
 import java.util.List;
+
+import batalha.Batalha;
 
 public interface BatalhaDAO {
 	public boolean persisteBatalha(Batalha batalha) throws ErroPersistenciaBatalha; 
