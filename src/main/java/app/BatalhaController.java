@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import batalha.BatalhaEmCursoException;
+import batalha.BatalhaTerminadaException;
 import batalha.LogicaBatalha;
 import batalha.LogicaTurno;
 import batalha.persistencia.BatalhaDAO;
@@ -32,7 +34,16 @@ public class BatalhaController {
 	@GetMapping("/batalha")
 	public ListaBatalhaResponse  listaBatalhas() {
 		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
-		ListaBatalhaResponse resp = logWrapper.listaBatalhas();
+		ListaBatalhaResponse resp = logWrapper.listaBatalhas(null, false);
+		return resp; 
+	}
+	
+	@GetMapping("/batalha/busca")
+	public ListaBatalhaResponse  buscaBatalhas(@RequestParam(name="user", defaultValue="") String nome, @RequestParam(name="terminada", defaultValue="0") String terminada) {
+		nome = "".equals(nome) ? null : nome;
+		boolean term = "0".equals(terminada) ? false : true;
+		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
+		ListaBatalhaResponse resp = logWrapper.listaBatalhas(nome, term);
 		return resp; 
 	}
 	
@@ -49,6 +60,9 @@ public class BatalhaController {
 			throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "não foram encontrados monstros na base!");
 		} catch (ErroPersistenciaBatalha e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "não foi possivel salvar a batalha!");
+		} catch (BatalhaEmCursoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return battle;
 	}
@@ -58,7 +72,7 @@ public class BatalhaController {
 		BatalhaResponse resp = null;
 		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
 		try {
-			logWrapper.getBatalha(id);
+			resp = logWrapper.getBatalha(id);
 		} catch (BatalhaInexistenteException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Essa batalha não foi encontrada!");
 		}
@@ -71,8 +85,15 @@ public class BatalhaController {
 		LogicaTurnoWrapper logWrapper = new LogicaTurnoWrapper(logBatalha);
 		try {
 			turno = logWrapper.criarTurno(id);
-		} catch (Exception e) {
-			
+		} catch (BatalhaTerminadaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BatalhaInexistenteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErroPersistenciaBatalha e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return turno;
 	}

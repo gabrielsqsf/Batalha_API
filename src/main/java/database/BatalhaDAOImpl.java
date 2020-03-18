@@ -38,7 +38,7 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 	}
 
 	@Override
-	public List<Batalha> recuperaBatalhasStatus(String nickname, boolean terminada) {
+	public List<Batalha> recuperaBatalhas(String nickname, boolean terminada) {
 		return batalhas.stream().filter(batalha -> nickname == null || (batalha.getNickname().equals(nickname) && batalha.isTerminada() == terminada)).collect(Collectors.toList());
 	}
 

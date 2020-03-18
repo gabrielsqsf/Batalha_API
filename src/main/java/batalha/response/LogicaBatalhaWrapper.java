@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import batalha.Batalha;
+import batalha.BatalhaEmCursoException;
 import batalha.LogicaBatalha;
 import batalha.persistencia.BatalhaInexistenteException;
 import batalha.persistencia.ErroPersistenciaBatalha;
@@ -22,13 +23,13 @@ public class LogicaBatalhaWrapper {
 		this.log = log;
 	}
 	
-	public BatalhaResponse criarBatalha(String nickname, String jogador) throws SemMonstrosException, PersonagemInexistenteException, ErroPersistenciaBatalha {
+	public BatalhaResponse criarBatalha(String nickname, String jogador) throws SemMonstrosException, PersonagemInexistenteException, ErroPersistenciaBatalha, BatalhaEmCursoException {
 		
 		return converteParaResponse(log.criarBatalha(nickname, jogador));
 	}
 	
-	public ListaBatalhaResponse listaBatalhas() {
-		ListaBatalhaResponse lbr = converteParaResponse(log.listaBatalhas());
+	public ListaBatalhaResponse listaBatalhas(String nome, boolean terminada) {
+		ListaBatalhaResponse lbr = converteParaResponse(log.listaBatalhas(nome, terminada));
 		return lbr;
 	}
 

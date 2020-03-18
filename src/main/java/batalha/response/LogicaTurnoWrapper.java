@@ -9,6 +9,7 @@ import batalha.LogicaBatalha;
 import batalha.LogicaTurno;
 import batalha.Turno;
 import batalha.persistencia.BatalhaInexistenteException;
+import batalha.persistencia.ErroPersistenciaBatalha;
 
 public class LogicaTurnoWrapper {
 	LogicaTurno log;
@@ -17,7 +18,7 @@ public class LogicaTurnoWrapper {
 		this.log = new LogicaTurno(log);
 	}
 	
-	public TurnoResponse criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
+	public TurnoResponse criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException, ErroPersistenciaBatalha {
 		return converterParaResponse(log.criarTurno(id));
 	}
 	

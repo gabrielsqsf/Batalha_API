@@ -1,6 +1,7 @@
 package batalha;
 
 import batalha.persistencia.BatalhaInexistenteException;
+import batalha.persistencia.ErroPersistenciaBatalha;
 import personagem.LogicaPersonagem;
 import personagem.Personagem;
 
@@ -12,12 +13,12 @@ public class LogicaTurno {
 		this.logBatalha = logBatalha;
 	}
 	
-	public Turno criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
+	public Turno criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException, ErroPersistenciaBatalha {
 		Batalha b = logBatalha.getBatalha(id);
 		return criarTurno(b);
 	}
 	
-	protected Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException {
+	protected Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException, ErroPersistenciaBatalha {
 		
 		if(batalha.isTerminada()) {
 			throw new BatalhaTerminadaException();
@@ -34,7 +35,9 @@ public class LogicaTurno {
 		calcularDano(batalha, turno);
 		
 		batalha.getTurnos().add(turno);
-					
+		
+		logBatalha.persisteBatalha(batalha);
+		
 		return turno;
 	}
 	
