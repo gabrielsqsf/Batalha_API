@@ -1,6 +1,6 @@
 package batalha.response;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import batalha.Batalha;
 import batalha.Turno;
@@ -9,12 +9,12 @@ import personagem.Personagem;
 public class BatalhaResponse {
 	private final long id;
 	private final String nickname;
-	private final ArrayList<Personagem> participantes;
-	private final ArrayList<Turno> turnos;
+	private final List<Personagem> participantes;
+	private final List<TurnoResponse> turnos;
 	private final boolean terminada;
 	private final int ranking;
 	
-	public BatalhaResponse(long id, String nickname, ArrayList<Personagem> participantes, ArrayList<Turno> turnos,
+	public BatalhaResponse(long id, String nickname, List<Personagem> participantes, List<TurnoResponse> turnos,
 			boolean terminada, int ranking) {
 		super();
 		this.id = id;
@@ -31,10 +31,10 @@ public class BatalhaResponse {
 	public String getNickname() {
 		return nickname;
 	}
-	public ArrayList<Personagem> getParticipantes() {
+	public List<Personagem> getParticipantes() {
 		return participantes;
 	}
-	public ArrayList<Turno> getTurnos() {
+	public List<TurnoResponse> getTurnos() {
 		return turnos;
 	}
 	public boolean isTerminada() {

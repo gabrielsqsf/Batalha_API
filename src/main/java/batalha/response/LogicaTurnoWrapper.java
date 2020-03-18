@@ -1,5 +1,8 @@
 package batalha.response;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import batalha.Batalha;
 import batalha.BatalhaTerminadaException;
 import batalha.LogicaBatalha;
@@ -8,11 +11,21 @@ import batalha.Turno;
 import batalha.persistencia.BatalhaInexistenteException;
 
 public class LogicaTurnoWrapper {
-	public static TurnoResponse criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
-		return converterParaResponse(LogicaTurno.criarTurno(id));
+	LogicaTurno log;
+	
+	public LogicaTurnoWrapper(LogicaBatalha log) {
+		this.log = new LogicaTurno(log);
+	}
+	
+	public TurnoResponse criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
+		return converterParaResponse(log.criarTurno(id));
 	}
 	
 	private static TurnoResponse converterParaResponse(Turno turno) {
-		return null;
+		return new TurnoResponse(turno.getIndex(), turno.getIniciativas(), turno.getAtaques(), turno.getDefesas(), turno.getDanos(), turno.getPdvInicial(), turno.getPdvFinal());
+	}
+
+	public static List<TurnoResponse> converterParaResponse(List<Turno> turnos) {
+		return turnos.stream().map(turno -> converterParaResponse(turno)).collect(Collectors.toList());
 	}
 }
