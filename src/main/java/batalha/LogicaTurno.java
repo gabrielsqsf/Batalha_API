@@ -6,12 +6,18 @@ import personagem.Personagem;
 
 public class LogicaTurno {
 	
-	public static Turno criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
-		Batalha b = LogicaBatalha.getBatalha(id);
+	LogicaBatalha logBatalha;
+	
+	public LogicaTurno(LogicaBatalha logBatalha) {
+		this.logBatalha = logBatalha;
+	}
+	
+	public Turno criarTurno(long id) throws BatalhaTerminadaException, BatalhaInexistenteException {
+		Batalha b = logBatalha.getBatalha(id);
 		return criarTurno(b);
 	}
 	
-	protected static Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException {
+	protected Turno criarTurno(Batalha batalha) throws BatalhaTerminadaException {
 		
 		if(batalha.isTerminada()) {
 			throw new BatalhaTerminadaException();
