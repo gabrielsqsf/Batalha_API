@@ -1,4 +1,4 @@
-package personagem;
+package database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,12 +6,15 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import personagem.Personagem;
 import personagem.persistencia.PersonagemDAO;
 import personagem.persistencia.PersonagemInexistenteException;
 import personagem.persistencia.SemMonstrosException;
 import personagem.persistencia.TipoPersonagemEnum;
 
+@Service
 public class PersonagemDAOImpl implements PersonagemDAO {
 	List<Personagem> personagens;
 	
