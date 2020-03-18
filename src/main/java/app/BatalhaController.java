@@ -61,8 +61,7 @@ public class BatalhaController {
 		} catch (ErroPersistenciaBatalha e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "não foi possivel salvar a batalha!");
 		} catch (BatalhaEmCursoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Você já está batalhando!");
 		}
 		return battle;
 	}
@@ -86,14 +85,11 @@ public class BatalhaController {
 		try {
 			turno = logWrapper.criarTurno(id);
 		} catch (BatalhaTerminadaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "A batalha já terminou!");
 		} catch (BatalhaInexistenteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Essa batalha não foi encontrada!");
 		} catch (ErroPersistenciaBatalha e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "não foi possivel salvar a batalha!");
 		}
 		return turno;
 	}
