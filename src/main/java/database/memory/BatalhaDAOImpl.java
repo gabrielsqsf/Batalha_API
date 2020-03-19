@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import batalha.Batalha;
 import batalha.persistencia.BatalhaDAO;
+import batalha.persistencia.BatalhaInexistenteException;
 import batalha.persistencia.ErroPersistenciaBatalha;
 
 @Service
@@ -24,13 +25,20 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 	
 	@Override
 	public boolean persisteBatalha(Batalha batalha) throws ErroPersistenciaBatalha {
-		Batalha existing = recuperaBatalha(batalha.getId());
-		if(existing != null) {
-			batalhas.remove(existing);
+		try {
+			Batalha existing = recuperaBatalha(batalha.getId());
+			if(existing != null) {
+				batalhas.remove(existing);
+			}
+		} catch (Exception e) {
+			
 		}
-		batalha.setId(batalhas.size()+1);
-		batalhas.add(batalha);
-		return false;
+		finally {
+			batalha.setId(batalhas.size()+1);
+			batalhas.add(batalha);
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -44,11 +52,13 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 	}
 
 	@Override
-	public Batalha recuperaBatalha(long id) {
+	public Batalha recuperaBatalha(long id) throws BatalhaInexistenteException {
 		List<Batalha> bats = batalhas.stream().filter(batalha -> batalha.getId() == id).collect(Collectors.toList());
 		Batalha ret = null;
 		if(bats.size() > 0) {
 			ret = bats.get(0);
+		} else {
+			throw new BatalhaInexistenteException();
 		}
 		return ret;
 	}

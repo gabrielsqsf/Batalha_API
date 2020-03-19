@@ -102,9 +102,15 @@ public class TesteRecuperarBatalha {
 	}
 	
 	@Test
-	public void buscarBatalhaInexistente() throws BatalhaInexistenteException {
-		Batalha batalha = log.getBatalha(-1);		
-		assertEquals(batalha, null);
+	public void buscarBatalhaInexistente()  {
+		Batalha batalha;
+		try {
+			batalha = log.getBatalha(-1);
+			assertEquals(1, 0);
+		} catch (BatalhaInexistenteException e) {
+			assertEquals(e.getClass().getName(), BatalhaInexistenteException.class.getName());
+		}		
+		
 	}
 	
 }
