@@ -43,7 +43,7 @@ public class LogicaBatalhaWrapper {
 									batalha.getParticipantes(), 
 									LogicaTurnoWrapper.converterParaResponse(batalha.getTurnos()), 
 									batalha.isTerminada(), 
-									batalha.isTerminada() ? 100 - batalha.getTurnos().size() : 0);
+									batalha.isTerminada() && batalha.getTurnos().get(batalha.getTurnos().size()-1).getPdvFinal()[0] > 0 ? 100 - batalha.getTurnos().size() : 0);
 	}
 	
 	private static ListaBatalhaResponse converteParaResponse (List<Batalha> batalhas) {

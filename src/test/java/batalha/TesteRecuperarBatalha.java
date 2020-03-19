@@ -31,7 +31,7 @@ public class TesteRecuperarBatalha {
 		BatalhaDAOImpl.limpaBatalhas();
 		log = new LogicaBatalha(dao, new PersonagemDAOImpl());
 		String nick = "teste";
-		String personagem = "Paladino";
+		String personagem = "Guerreiro";
 		
 		for(int i = 0; i < 10; i++) {
 			log.criarBatalha("teste"+i, personagem);
