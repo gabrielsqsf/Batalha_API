@@ -6,7 +6,7 @@ import batalha.Turno;
 import personagem.Personagem;
 
 public class Batalha {
-	private final long id;
+	private long id;
 	private final String nickname;
 	private final ArrayList<Personagem> participantes;
 	private final ArrayList<Turno> turnos;
@@ -23,6 +23,10 @@ public class Batalha {
 
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getNickname() {

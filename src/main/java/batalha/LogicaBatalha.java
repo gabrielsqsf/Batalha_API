@@ -39,6 +39,10 @@ public class LogicaBatalha {
 		return battle;
 	}
 	
+	public List<Batalha> listaBatalhas(String nome) {
+		return dao.recuperaBatalhas(nome);
+	}
+	
 	public List<Batalha> listaBatalhas(String nome, boolean terminada) {
 		return dao.recuperaBatalhas(nome, terminada);
 	}

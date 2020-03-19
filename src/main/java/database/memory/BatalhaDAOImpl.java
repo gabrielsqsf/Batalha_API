@@ -28,6 +28,7 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 		if(existing != null) {
 			batalhas.remove(existing);
 		}
+		batalha.setId(batalhas.size()+1);
 		batalhas.add(batalha);
 		return false;
 	}
@@ -39,7 +40,7 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 
 	@Override
 	public List<Batalha> recuperaBatalhas(String nickname, boolean terminada) {
-		return batalhas.stream().filter(batalha -> nickname == null || (batalha.getNickname().equals(nickname) && batalha.isTerminada() == terminada)).collect(Collectors.toList());
+		return batalhas.stream().filter(batalha -> (nickname == null || batalha.getNickname().equals(nickname)) && batalha.isTerminada() == terminada).collect(Collectors.toList());
 	}
 
 	@Override
