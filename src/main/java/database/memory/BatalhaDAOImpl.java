@@ -52,4 +52,7 @@ public class BatalhaDAOImpl implements BatalhaDAO {
 		return ret;
 	}
 
+	public static void limpaBatalhas() {
+		batalhas.clear();
+	}
 }
