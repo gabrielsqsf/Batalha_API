@@ -30,7 +30,7 @@ public class LogicaBatalha {
 		ArrayList<Personagem> personagens = new ArrayList<Personagem>();
 		personagens.add(logPersonagem.selecionarPersonagemJogador(jogador));
 		personagens.add(logPersonagem.sorteiaMonstro());
-		List<Batalha> batalhas = dao.recuperaBatalhas(jogador, false);
+		List<Batalha> batalhas = dao.recuperaBatalhas(nickname, false);
 		if(batalhas.size() > 0) {
 			throw new BatalhaEmCursoException();
 		}
