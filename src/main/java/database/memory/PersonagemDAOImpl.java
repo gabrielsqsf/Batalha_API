@@ -1,4 +1,4 @@
-package database;
+package database.memory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import personagem.persistencia.TipoPersonagemEnum;
 public class PersonagemDAOImpl implements PersonagemDAO {
 	List<Personagem> personagens;
 	
-	PersonagemDAOImpl() {
+	public PersonagemDAOImpl() {
 		personagens = new ArrayList<Personagem>();
 		Personagem guerreiro = new Personagem(TipoPersonagemEnum.Jogador.ordinal(), 12, 4, 3, 3, 2, 4, "Guerreiro");
 		personagens.add(guerreiro);

@@ -1,4 +1,4 @@
-package database;
+package database.memory;
 
 import java.util.ArrayList;
 import java.util.List;
