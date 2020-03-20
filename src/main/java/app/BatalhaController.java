@@ -1,9 +1,13 @@
 package app;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,26 +38,16 @@ public class BatalhaController {
 	@GetMapping("/batalha")
 	public ListaBatalhaResponse  listaBatalhas() {
 		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
-		ListaBatalhaResponse resp = logWrapper.listaBatalhas(null, false);
-		return resp; 
-	}
-	
-	@GetMapping("/batalha/busca")
-	public ListaBatalhaResponse  buscaBatalhas(@RequestParam(name="user", defaultValue="") String nome, @RequestParam(name="terminada", defaultValue="0") String terminada) {
-		nome = "".equals(nome) ? null : nome;
-		boolean term = "0".equals(terminada) ? false : true;
-		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
-		ListaBatalhaResponse resp = logWrapper.listaBatalhas(nome, term);
+		ListaBatalhaResponse resp = logWrapper.listaBatalhas();
 		return resp; 
 	}
 	
 	@PostMapping("/batalha")
-	public BatalhaResponse criaBatalha(@RequestParam(name="nickname") String nickname, 
-			@RequestParam(name="personagem") String personagem) {
+	public BatalhaResponse criaBatalha(@RequestBody Map<String, String> payload) {
 		BatalhaResponse battle = null;
 		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
 		try {
-			battle = logWrapper.criarBatalha(nickname, personagem);
+			battle = logWrapper.criarBatalha(payload.get("nickname"), payload.get("classe"));
 		} catch(PersonagemInexistenteException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "personagem inexistente!");
 		} catch(SemMonstrosException e) {
@@ -66,8 +60,17 @@ public class BatalhaController {
 		return battle;
 	}
 	
+	@GetMapping("/batalha/busca")
+	public ListaBatalhaResponse  buscaBatalhas(@RequestParam(name="user", defaultValue="") String nome, @RequestParam(name="terminada", defaultValue="0") String terminada) {
+		nome = "".equals(nome) ? null : nome;
+		boolean term = "0".equals(terminada) ? false : true;
+		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
+		ListaBatalhaResponse resp = logWrapper.listaBatalhas(nome, term);
+		return resp; 
+	} 
+	
 	@GetMapping("/batalha/{id}")
-	public BatalhaResponse  listaBatalhasId(@RequestParam(name="id") long id) {
+	public BatalhaResponse  listaBatalhasId(@PathVariable long id) {
 		BatalhaResponse resp = null;
 		LogicaBatalhaWrapper logWrapper = new LogicaBatalhaWrapper(logBatalha);
 		try {
@@ -79,7 +82,7 @@ public class BatalhaController {
 	}
 	
 	@PostMapping("/batalha/{id}")
-	public TurnoResponse CriarTurno(@RequestParam(name="id") long id) {
+	public TurnoResponse CriarTurno(@PathVariable long id) {
 		TurnoResponse turno = null;
 		LogicaTurnoWrapper logWrapper = new LogicaTurnoWrapper(logBatalha);
 		try {

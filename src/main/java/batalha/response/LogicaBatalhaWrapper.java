@@ -52,4 +52,9 @@ public class LogicaBatalhaWrapper {
 		return l; 
 	}
 
+	public ListaBatalhaResponse listaBatalhas() {
+		ListaBatalhaResponse lbr = converteParaResponse(log.listaBatalhas());
+		return lbr;
+	}
+
 }

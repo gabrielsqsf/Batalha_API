@@ -54,4 +54,8 @@ public class LogicaBatalha {
 	public void persisteBatalha(Batalha batalha) throws ErroPersistenciaBatalha {
 		dao.persisteBatalha(batalha);
 	}
+
+	public List<Batalha> listaBatalhas() {
+		return dao.recuperaBatalhas(null);
+	}
 }
