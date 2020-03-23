@@ -73,10 +73,10 @@ Turno {
 	PdVFinal: [int,int]
 }
 
-O turno já virá calculado e com todos os seus parâmetros preenchidos, sendo necessário para o cliente somente decidir como exibir o mesmo. Caso a batalha tenha sido concluída, o resultado será um erro a ser enviado.
+O turno já virá calculado e com todos os seus parâmetros preenchidos, sendo necessário para o cliente somente decidir como exibir o mesmo. Caso a batalha tenha sido concluída, o resultado será um erro.
 
 # Precisando testar?
 
-É possível utilizar o jar de cliente presente neste repositório para se conectar ao sistema. Se for o caso utilize "java -jar client.jar". 
+É possível utilizar o jar de cliente presente neste repositório para se conectar ao sistema. Se for o caso utilize "java -jar client.jar". Antes de rodar o mesmo, por favor iniciar o servidor através do comando "mvn clean spring-boot:run".
 
 Caso queira olhar o código do mesmo, por favor acessar o [repositório](https://github.com/gabrielsqsf/Batalha_CLient.git). 
